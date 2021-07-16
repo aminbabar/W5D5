@@ -29,13 +29,13 @@ def costars(name)
 
   sub = Movie 
           .select(:id)
-          .join(:actors)
+          .joins(:actors)
           .where(actors: {name: name})
 
   Actor
       .joins(:movies)
       .where.not(actors: {name: name})
-      .where(movies: {id: sub.to_a})
+      .where(movies: {id: sub})
       .group(:name).pluck(:name)
       
 
